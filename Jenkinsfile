@@ -19,9 +19,9 @@ pipeline {
                 sh "mvn test -f simple-maven-jenkins"
             }
         }
-        stage('jar') {
+        stage('install') {
             steps {
-                sh "mvn jar"
+                sh "mvn install"
             }
         }
     }
