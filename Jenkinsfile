@@ -1,19 +1,27 @@
 pipeline {
     agent any
-    stages: {
-        stage('clean') {
+    tools {
+     maven "Maven_home"
+    }
+    stages {
+        stage('clean-old-files') {
             steps {
-                sh "mvn clean"
+                sh "rm -rf simple-maven-jenkins"
             }
         }
-        stage('test') {
+        stage('download-src') {
             steps {
-                sh "mvn test"
+                sh "git clone https://github.com/vpradeepkumar94/simple-maven-jenkins.git"
             }
         }
-        stage('package') {
+        stage('run test') {
             steps {
-                sh "mvn package"
+                sh "mvn test -f simple-maven-jenkins"
+            }
+        }
+        stage('jar') {
+            steps {
+                sh "mvn jar"
             }
         }
     }
